@@ -1,0 +1,10 @@
+[project]
+name = "recipe-drawer"
+version = "0.1.0"
+description = "Self-hosted recipe book that imports recipes from links, images or text using LLM-based extraction."
+readme = "README.md"
+authors = [
+    { name = "alina-geissler" }
+]
+requires-python = ">=3.14"
+dependencies = []
