@@ -953,7 +953,7 @@ set in the `.env` file.
 - Issues are managed on a **GitHub Projects** board with the columns *Backlog*, *Ready*,
   *In Progress* and *Done*; closed issues move to *Done* automatically.
 - Issues are assigned to **GitHub milestones** that correspond to the milestones in section 14.
-- Labels: `feature`, `bug`, `docs`, `test`, `refactor`, `tech-debt`.
+- Labels: `feature`, `bug`, `docs`, `test`, `refactor`, `tech-debt`, `chore`.
 - **Weekly planning** (about 15 minutes): review progress, move the next issues to *Ready*,
   update the plan if necessary.
 - **Work in progress** is limited to one or two issues at a time: finish before starting
