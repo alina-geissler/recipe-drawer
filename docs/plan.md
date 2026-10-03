@@ -722,8 +722,8 @@ recipe-drawer/
 │   ├── pages/                   # full pages
 │   └── partials/                # HTMX fragments
 ├── static/
-│   ├── css/                     # pico.min.css (self-hosted), app.css
-│   └── js/                      # htmx.min.js (self-hosted)
+│   ├── css/                     # app.css (custom only for now; framework choice open, see 15.2)
+│   └── js/                      # vendored JS added as needed (e.g. htmx, once interactivity is needed)
 ├── alembic/                     # database migrations
 ├── seeds/                       # seed data: categories, tag groups, tags
 ├── scripts/                     # seeding, backup
@@ -834,8 +834,8 @@ README and relevant decisions in the decision log (section 16).
 - **Style:** PEP 8, enforced by Ruff (linting and formatting) with default settings.
 - **Types:** type annotations for all functions; checked with mypy (default settings initially,
   stricter settings after the first milestone).
-- **Docstrings:** for all public functions and classes, describing purpose, parameters and
-  return values.
+- **Docstrings:** Google style, for all modules, public functions and classes, describing purpose, parameters and
+  return values (types are omitted, as they are covered by the type annotations).
 - **Architecture rules:** routes only call services; services contain the business logic; CRUD
   functions receive a session and never commit; all LLM calls go through `app/llm/`.
 - **Automation:** Ruff and mypy run before every commit (pre-commit) and in CI; a pull request is
