@@ -12,6 +12,7 @@ engine = create_engine(get_settings().database_url)
 
 @event.listens_for(engine, "connect")
 def _set_sqlite_pragma(dbapi_connection, connection_record):
+    """Enable SQLite foreign key enforcement on each new connection."""
     cursor = dbapi_connection.cursor()
     cursor.execute("PRAGMA foreign_keys=ON")
     cursor.close()
