@@ -15,12 +15,25 @@ jobs:
         with:
           enable-cache: true
 
-      - run: uv sync --locked
+      - name: Install dependencies
+        run: uv sync --locked
 
-      - run: uv run ruff check .
+      - name: Lint
+        run: uv run ruff check .
 
-      - run: uv run ruff format --check .
+      - name: Check formatting
+        run: uv run ruff format --check .
 
-      - run: uv run mypy .
+      - name: Type check
+        run: uv run mypy .
 
-      - run: uv run pytest
+      - name: Run database migrations
+        run: |
+          uv run alembic upgrade head
+          uv run alembic downgrade base
+        env:
+          DATABASE_URL: sqlite:///./ci_test.db
+
+      - name: Run tests
+        run: uv run pytest
+
