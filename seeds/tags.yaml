@@ -1,0 +1,128 @@
+- name: Besonderheiten
+  tags:
+    - name: Sauerteig
+      is_pinned: true
+    - name: ASG-Reste
+      is_pinned: true
+    - name: Übernachtgare
+      is_pinned: false
+    - name: Resteverwertung
+      is_pinned: false
+    - name: Meal Prep
+      is_pinned: false
+    - name: gut vorzubereiten
+      is_pinned: false
+    - name: einfriergeeignet
+      is_pinned: false
+    - name: für unterwegs
+      is_pinned: false
+    - name: kinderfreundlich
+      is_pinned: false
+    - name: günstig
+      is_pinned: false
+
+- name: Ernährung
+  tags:
+    - name: vegetarisch
+      is_pinned: false
+    - name: vegan
+      is_pinned: true
+    - name: ballaststoffreich
+      is_pinned: true
+    - name: eiweißreich
+      is_pinned: true
+    - name: glutenfrei
+      is_pinned: false
+    - name: laktosefrei
+      is_pinned: false
+    - name: eifrei
+      is_pinned: false
+    - name: nussfrei
+      is_pinned: false
+    - name: ohne Industriezucker
+      is_pinned: false
+    - name: low carb
+      is_pinned: false
+    - name: gemüsereich
+      is_pinned: false
+    - name: leicht
+      is_pinned: false
+
+- name: Methode
+  tags:
+    - name: No-Bake
+      is_pinned: false
+    - name: Grillen
+      is_pinned: false
+    - name: Frittieren
+      is_pinned: false
+    - name: Airfryer
+      is_pinned: false
+    - name: One-Pot
+      is_pinned: false
+    - name: Slow Cooker
+      is_pinned: false
+    - name: Blech
+      is_pinned: false
+    - name: Dampfgaren
+      is_pinned: false
+    - name: Dutch Oven
+      is_pinned: false
+    - name: Sous-vide
+      is_pinned: false
+
+- name: Geschmack
+  tags:
+    - name: süß
+      is_pinned: false
+    - name: herzhaft
+      is_pinned: false
+    - name: scharf
+      is_pinned: false
+    - name: sauer
+      is_pinned: false
+    - name: umami
+      is_pinned: false
+
+- name: Gang
+  tags:
+    - name: Vorspeise
+      is_pinned: false
+    - name: Hauptgericht
+      is_pinned: false
+    - name: Beilage
+      is_pinned: false
+    - name: Nachspeise
+      is_pinned: false
+
+- name: Saison
+  tags:
+    - name: Frühling
+      is_pinned: true
+    - name: Sommer
+      is_pinned: true
+    - name: Herbst
+      is_pinned: true
+    - name: Winter
+      is_pinned: true
+
+- name: Anlass
+  tags:
+    - name: Geburtstag
+      is_pinned: false
+    - name: Weihnachten
+      is_pinned: false
+    - name: Ostern
+      is_pinned: false
+    - name: Silvester
+      is_pinned: false
+    - name: Valentinstag / Date Night
+      is_pinned: false
+    - name: Party & Buffet
+      is_pinned: false
+    - name: festlich
+      is_pinned: false
+    - name: Picknick
+      is_pinned: false
+    - name: Geschenke aus der Küche
+      is_pinned: false

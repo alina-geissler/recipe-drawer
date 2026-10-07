@@ -1,0 +1,78 @@
+- name: Backen
+  children:
+    - Brot
+    - Brötchen
+    - Hefegebäck & Plunder
+    - Blätterteig & Kleingebäck
+    - Kuchen
+    - Torten
+    - Muffins & Cupcakes
+    - Plätzchen & Kekse
+    - Quiches & Herzhaftes
+    - Sonstiges
+
+- name: Kochen
+  children:
+    - Pasta & Reis
+    - Suppen & Eintöpfe
+    - Aufläufe
+    - Gemüsegerichte
+    - Fingerfood
+    - Salate
+    - Sonstiges
+
+- name: Süßes
+  children:
+    - Desserts / Süßspeisen
+    - Cremes & Puddings
+    - Eis
+    - Pralinen & Konfekt
+    - Süße Snacks
+    - Sonstiges
+
+- name: Frühstück & Vesper
+  children:
+    - Frühstück & Brunch
+    - belegte Brote / Sandwiches
+    - Overnight Oats / Porridge
+    - Sonstiges
+
+- name: Soßen, Dips & Aufstriche
+  children:
+    - Soßen
+    - Dips
+    - Pesto
+    - Aufstriche
+    - Dressings
+    - Marinaden
+    - Würzpasten
+    - Sonstiges
+
+- name: Getränke
+  children:
+    - Smoothies & Säfte
+    - Limonaden
+    - Cocktails / Mocktails
+    - Heiße Getränke
+    - Sirups
+    - Sonstiges
+
+- name: Einmachen & Vorrat
+  children:
+    - Marmeladen & Gelees
+    - Chutneys
+    - Fermentieren & Einlegen
+    - Gewürzmischungen / Brühen / Fonds
+    - Sonstiges
+
+- name: Kosmetik & Haushalt
+  children:
+    - Körperpflege
+    - Gesichtspflege
+    - Haarpflege
+    - Badezusätze
+    - Peelings
+    - Lippenpflege
+    - Seifen
+    - Haushalt & Reinigung
+    - Sonstiges
