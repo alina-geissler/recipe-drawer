@@ -222,3 +222,4 @@ __marimo__/
 data/
 scratch/
 .claude/settings.local.json
+ci_test.db
