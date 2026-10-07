@@ -12,6 +12,7 @@ from app.models.recipe_tag import recipe_tags
 
 if TYPE_CHECKING:
     from app.models.category import Category
+    from app.models.image import Image
     from app.models.ingredient import Ingredient
     from app.models.step import Step
     from app.models.tag import Tag
@@ -56,4 +57,8 @@ class Recipe(Base):
 
     tags: Mapped[list[Tag]] = relationship(
         secondary=recipe_tags, back_populates="recipes"
+    )
+
+    images: Mapped[list[Image]] = relationship(
+        back_populates="recipe", cascade="all, delete-orphan", order_by="Image.position"
     )
