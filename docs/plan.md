@@ -636,7 +636,12 @@ The order of ingredients and steps in the lists defines their `position`.
 - **Classification:** exactly one subcategory is chosen from the list; if none fits, the
   "Other" subcategory of the most suitable main category is used.
 - **Tags:** existing tags are always preferred; new tags are only suggested if no existing tag
-  covers the meaning (no synonyms or variations of existing tags).
+  covers the meaning (no synonyms or variations of existing tags). Tags that are easy to confuse
+  are passed to the model with a short explanation, e.g. "gut vorzubereiten" (individual steps
+  can be done in advance so that cooking is quicker, but the dish is finished shortly before
+  serving) versus "Meal Prep" (the dish or a component of it is prepared ahead and stored,
+  usually frozen or refrigerated, to be used later, even if only the next day - it's more of a 
+  stock than a preparation for the subsequent cooking).
 
 ### 7.3 Error Cases
 
