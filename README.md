@@ -1,5 +1,7 @@
 **Recipe Drawer**
 
+![Illustration of a recipe drawer](docs/images/banner.webp)
+
 Self-hosted recipe book with AI-powered import from websites and screenshots, built with FastAPI, HTMX and SQLite.
 
 > **Status:** early-stage portfolio project. So far there's only a health check and a
