@@ -4,6 +4,8 @@ import pytest
 
 from app.extraction.url_cleaning import clean_url
 
+# --- Tracking parameter removal ---------------------------------------------
+
 
 @pytest.mark.parametrize(
     "url",
@@ -44,3 +46,72 @@ def test_removes_utm_parameters() -> None:
 def test_keeps_non_tracking_parameters(url: str, expected: str) -> None:
     """clean_url keeps non-tracking parameters intact."""
     assert clean_url(url) == expected
+
+
+# --- Normalization for duplicate detection -----------------------------------
+
+
+@pytest.mark.parametrize(
+    ("url", "expected"),
+    [
+        ("HTTPS://Example.COM/pancakes", "https://example.com/pancakes"),
+        ("http://EXAMPLE.com/Pancakes", "http://example.com/Pancakes"),
+    ],
+)
+def test_lowercases_scheme_and_host(url: str, expected: str) -> None:
+    """clean_url lowercases the scheme and host but leaves the path case untouched."""
+    assert clean_url(url) == expected
+
+
+@pytest.mark.parametrize(
+    ("url", "expected"),
+    [
+        (
+            "https://example.com/pancakes#wprm-recipe-container-1234",
+            "https://example.com/pancakes",
+        ),
+        (
+            "https://example.com/pancakes?servings=4#rezept",
+            "https://example.com/pancakes?servings=4",
+        ),
+    ],
+)
+def test_removes_fragment(url: str, expected: str) -> None:
+    """clean_url strips the fragment, with or without a query string present."""
+    assert clean_url(url) == expected
+
+
+@pytest.mark.parametrize(
+    ("url", "expected"),
+    [
+        (
+            "https://example.com/pancakes/",
+            "https://example.com/pancakes",
+        ),
+        (
+            "https://example.com/recipes/pancakes/",
+            "https://example.com/recipes/pancakes",
+        ),
+    ],
+)
+def test_strips_trailing_slash(url: str, expected: str) -> None:
+    """clean_url strips a trailing slash from a non-root path."""
+    assert clean_url(url) == expected
+
+
+@pytest.mark.parametrize(
+    "url",
+    [
+        "https://example.com/",
+        "https://example.com",
+    ],
+)
+def test_keeps_root_path_slash(url: str) -> None:
+    """clean_url normalizes the root path to a single slash, with or without one given."""
+    assert clean_url(url) == "https://example.com/"
+
+
+def test_sorts_query_parameters() -> None:
+    """clean_url sorts the remaining query parameters alphabetically by key."""
+    url = "https://example.com/pancakes?servings=4&page=2"
+    assert clean_url(url) == "https://example.com/pancakes?page=2&servings=4"
