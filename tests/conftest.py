@@ -1,5 +1,13 @@
 """Shared pytest fixtures (test database, session, client)."""
 
+import httpx2
+
+# Must run before anything imports httpx, so the imports below stay after it.
+# FastAPI's TestClient and respx (in the test modules) import `httpx`; this makes
+# it resolve to httpx2. respx's pytest plugin is disabled in pyproject.toml
+# because pytest would load it before this file.
+httpx2.alias_httpx()
+
 from collections.abc import Generator
 
 import pytest
