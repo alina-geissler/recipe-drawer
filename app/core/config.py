@@ -21,6 +21,9 @@ class Settings(BaseSettings):
         f"sqlite:///{(BASE_DIR / 'data' / 'recipe_drawer.db').as_posix()}"
     )
 
+    user_agent: str = "RecipeDrawer/1.0 (self-hosted recipe manager)"
+    fetch_timeout_seconds: int = 20
+
 
 @lru_cache
 def get_settings() -> Settings:

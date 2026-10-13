@@ -918,7 +918,7 @@ set in the `.env` file.
 | `MAX_IMAGES_PER_IMPORT` | no                 | `5`                                             | Maximum number of images per import                       |
 | `MAX_IMAGE_SIZE_MB`     | no                 | `10`                                            | Maximum size per image                                    |
 | `MAX_TEXT_LENGTH`       | no                 | TBD                                             | Maximum length of pasted text                             |
-| `FETCH_TIMEOUT_SECONDS` | no                 | `20`                                            | Timeout for fetching web pages                            |
+| `FETCH_TIMEOUT_SECONDS` | no                 | `20`                                            | Timeout for fetching web pages and robots.txt             |
 | `LOG_LEVEL`             | no                 | `INFO`                                          | Log level                                                 |
 | `USER_AGENT`            | no                 | `RecipeDrawer/1.0 (self-hosted recipe manager)` | User agent sent when fetching robots.txt and recipe pages |
 
