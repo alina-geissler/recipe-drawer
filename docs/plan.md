@@ -567,8 +567,9 @@ the LLM, validation with Pydantic, and saving the recipe as a `draft` for review
 3. Check robots.txt with the app's own user agent. The check is conservative: only status 200 is
    parsed and its rules applied, status 404 means no robots.txt exists and access is allowed, and
    any other response (including 401, 403, 429 and 5xx) or an unreachable server means the page
-   is not fetched. Redirects are followed, including to another domain. Results are cached per
-   origin (scheme, host and port) for the lifetime of the process.
+   is not fetched. Redirects are followed, including to another domain. Results are cached per origin
+   (scheme, host and port) for the lifetime of the process; failed requests are not cached, so a temporary
+   network problem does not block a site until restart.
 4. Fetch the page with an honest user agent and a timeout of 20 s. Redirects are followed; if a
    redirect leads to another domain, robots.txt is checked again there.
 5. Accept only a `200` response; any other status is treated as an error.

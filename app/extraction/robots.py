@@ -1,9 +1,22 @@
-"""Checking whether robots.txt allows fetching a recipe page."""
+"""Checking whether robots.txt allows fetching a recipe page.
 
+Contains the pure decision logic for a robots.txt response and the function that
+fetches robots.txt per origin and caches the response.
+"""
+
+from urllib.parse import urlparse
 from urllib.robotparser import RobotFileParser
 
+import httpx2
 
-def is_allowed(*, status_code: int, robots_txt: str, url: str, user_agent: str) -> bool:
+from app.core.config import get_settings
+
+_robots_cache: dict[str, tuple[int, str]] = {}
+
+
+def is_allowed_by_robots_txt(
+    *, status_code: int, robots_txt: str, url: str, user_agent: str
+) -> bool:
     """Decide whether a page may be fetched, based on the site's robots.txt response.
 
     The check is conservative: status 200 means the robots.txt rules are applied,
@@ -27,3 +40,44 @@ def is_allowed(*, status_code: int, robots_txt: str, url: str, user_agent: str) 
     parser = RobotFileParser()
     parser.parse(robots_txt.splitlines())
     return parser.can_fetch(user_agent, url)
+
+
+def may_fetch(url: str) -> bool:
+    """Check whether a URL may be fetched according to the site's robots.txt.
+
+    robots.txt is fetched with the configured user agent and timeout, following
+    redirects. Responses are cached per origin (scheme, host and port) for the
+    lifetime of the process. A failed request blocks fetching but is not cached,
+    so a temporary network problem does not block a site permanently.
+
+    Args:
+        url: URL of the page to fetch.
+
+    Returns:
+        True if the page may be fetched, False otherwise.
+    """
+    settings = get_settings()
+    parsed = urlparse(url)
+    origin = f"{parsed.scheme}://{parsed.netloc}"
+
+    if origin in _robots_cache:
+        status_code, robots_txt = _robots_cache[origin]
+    else:
+        try:
+            response = httpx2.get(
+                f"{origin}/robots.txt",
+                headers={"User-Agent": settings.user_agent},
+                timeout=settings.fetch_timeout_seconds,
+                follow_redirects=True,
+            )
+            status_code, robots_txt = response.status_code, response.text
+            _robots_cache[origin] = (status_code, robots_txt)
+        except httpx2.RequestError:
+            return False
+
+    return is_allowed_by_robots_txt(
+        status_code=status_code,
+        robots_txt=robots_txt,
+        url=url,
+        user_agent=settings.user_agent,
+    )
