@@ -45,6 +45,26 @@ def test_environment_variable_overrides_default(monkeypatch: MonkeyPatch) -> Non
     assert settings.database_url == "sqlite:///tmp/test.db"
 
 
+def test_user_agent_defaults_to_identifiable_app_name(monkeypatch: MonkeyPatch) -> None:
+    """The default user agent names the app, so site operators can identify it."""
+    monkeypatch.delenv("USER_AGENT", raising=False)
+
+    settings = Settings(_env_file=None)  # type: ignore[call-arg]
+    # pydantic-settings' internal init kwargs aren't visible to mypy (dataclass_transform)
+
+    assert settings.user_agent == "RecipeDrawer/1.0 (self-hosted recipe manager)"
+
+
+def test_fetch_timeout_defaults_to_twenty_seconds(monkeypatch: MonkeyPatch) -> None:
+    """The default fetch timeout is 20 seconds, as specified in the plan."""
+    monkeypatch.delenv("FETCH_TIMEOUT_SECONDS", raising=False)
+
+    settings = Settings(_env_file=None)  # type: ignore[call-arg]
+    # pydantic-settings' internal init kwargs aren't visible to mypy (dataclass_transform)
+
+    assert settings.fetch_timeout_seconds == 20
+
+
 def test_get_settings_returns_the_same_instance() -> None:
     """get_settings() is cached and returns the same object on every call."""
     assert get_settings() is get_settings()
