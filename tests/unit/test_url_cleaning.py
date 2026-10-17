@@ -71,7 +71,7 @@ def test_lowercases_scheme_and_host(url: str, expected: str) -> None:
             "https://example.com/pancakes",
         ),
         (
-            "https://example.com/pancakes?servings=4#rezept",
+            "https://example.com/pancakes?servings=4#recipe",
             "https://example.com/pancakes?servings=4",
         ),
     ],
@@ -124,10 +124,10 @@ def test_sorts_query_parameters() -> None:
     ("url", "expected"),
     [
         (
-            "https://example.com/rezepte/pfannkuchen?portionen=4#zutaten",
+            "https://example.com/recipes/pancakes?servings=4#ingredients",
             "https://example.com",
         ),
-        ("http://example.com:8080/rezept", "http://example.com:8080"),
+        ("http://example.com:8080/pancakes", "http://example.com:8080"),
     ],
 )
 def test_returns_the_origin(url: str, expected: str) -> None:
