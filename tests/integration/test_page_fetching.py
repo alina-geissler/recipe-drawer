@@ -318,6 +318,18 @@ def test_refuses_redirect_to_local_address_without_any_request(
         assert page_route.call_count == 0
 
 
+@respx.mock
+def test_blocks_redirect_without_location() -> None:
+    """A redirect status without a Location header is reported as blocked."""
+    respx.get("https://recipes.example/pancakes").mock(
+        return_value=httpx.Response(301),
+    )
+
+    result = fetch_page("https://recipes.example/pancakes")
+
+    assert result == FetchResult.failure(FetchFailureReason.BLOCKED)
+
+
 def test_follows_up_to_max_redirects() -> None:
     """A chain of exactly MAX_REDIRECTS redirects is followed to the page."""
     with respx.mock() as respx_mock:
