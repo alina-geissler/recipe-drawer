@@ -6,17 +6,10 @@ so mypy only accepts responses and errors created from `httpx`.
 """
 
 import httpx
-import pytest
 import respx
 
 from app.core.config import get_settings
-from app.extraction.robots import _robots_cache, may_fetch
-
-
-@pytest.fixture(autouse=True)
-def clear_robots_cache() -> None:
-    """Clear the robots.txt cache so no test sees responses cached by another."""
-    _robots_cache.clear()
+from app.extraction.robots import may_fetch
 
 
 @respx.mock
