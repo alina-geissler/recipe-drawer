@@ -108,9 +108,8 @@ def fetch_page(url: str) -> FetchResult:
         if response.is_redirect:
             next_request = response.next_request
             if not next_request:
-                return FetchResult.failure(
-                    FetchFailureReason.BLOCKED
-                )  # redirect without a usable Location header
+                # redirect without a usable Location header
+                return FetchResult.failure(FetchFailureReason.BLOCKED)
             redirect_to = str(next_request.url)
             origin_current = get_origin(url)
             origin_next = get_origin(redirect_to)
@@ -121,9 +120,8 @@ def fetch_page(url: str) -> FetchResult:
                 if failure_reason is not None:
                     return FetchResult.failure(failure_reason)
                 if not may_fetch(redirect_to):
-                    return FetchResult.failure(
-                        FetchFailureReason.BLOCKED
-                    )  # forbidden by robots.txt
+                    # forbidden by robots.txt
+                    return FetchResult.failure(FetchFailureReason.BLOCKED)
             url = redirect_to
             continue
         if response.status_code == 200:
@@ -132,7 +130,6 @@ def fetch_page(url: str) -> FetchResult:
             return FetchResult.failure(FetchFailureReason.PAGE_NOT_FOUND)
         if response.status_code >= 500:
             return FetchResult.failure(FetchFailureReason.TEMPORARY_FAILURE)
-        return FetchResult.failure(
-            FetchFailureReason.BLOCKED
-        )  # 401, 403, 429, bot protection and any other status
+        # 401, 403, 429, bot protection and any other status
+        return FetchResult.failure(FetchFailureReason.BLOCKED)
     return FetchResult.failure(FetchFailureReason.BLOCKED)  # too many redirects
