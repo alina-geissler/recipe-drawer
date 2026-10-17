@@ -1,4 +1,4 @@
-"""Cleaning and normalizing of recipe URLs."""
+"""Cleaning and normalizing of recipe URLs, and URL helpers shared by the pipeline."""
 
 from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
 
@@ -14,6 +14,19 @@ TRACKING_PARAMS = (
     "mc_cid",
     "mc_eid",
 )
+
+
+def get_origin(url: str) -> str:
+    """Return the origin of a URL: scheme, host and port, without path or query.
+
+    Args:
+        url: The URL to take the origin from.
+
+    Returns:
+        The origin, e.g. `https://example.com:8080`.
+    """
+    parsed_url = urlparse(url)
+    return f"{parsed_url.scheme}://{parsed_url.netloc}"
 
 
 def clean_url(url: str) -> str:

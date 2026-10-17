@@ -4,12 +4,12 @@ Contains the pure decision logic for a robots.txt response and the function that
 fetches robots.txt per origin and caches the response.
 """
 
-from urllib.parse import urlparse
 from urllib.robotparser import RobotFileParser
 
 import httpx2
 
 from app.core.config import get_settings
+from app.extraction.url_cleaning import get_origin
 
 _robots_cache: dict[str, tuple[int, str]] = {}
 
@@ -57,8 +57,7 @@ def may_fetch(url: str) -> bool:
         True if the page may be fetched, False otherwise.
     """
     settings = get_settings()
-    parsed = urlparse(url)
-    origin = f"{parsed.scheme}://{parsed.netloc}"
+    origin = get_origin(url)
 
     if origin in _robots_cache:
         status_code, robots_txt = _robots_cache[origin]

@@ -2,7 +2,7 @@
 
 import pytest
 
-from app.extraction.url_cleaning import clean_url
+from app.extraction.url_cleaning import clean_url, get_origin
 
 # --- Tracking parameter removal ---------------------------------------------
 
@@ -71,7 +71,7 @@ def test_lowercases_scheme_and_host(url: str, expected: str) -> None:
             "https://example.com/pancakes",
         ),
         (
-            "https://example.com/pancakes?servings=4#rezept",
+            "https://example.com/pancakes?servings=4#recipe",
             "https://example.com/pancakes?servings=4",
         ),
     ],
@@ -115,3 +115,21 @@ def test_sorts_query_parameters() -> None:
     """clean_url sorts the remaining query parameters alphabetically by key."""
     url = "https://example.com/pancakes?servings=4&page=2"
     assert clean_url(url) == "https://example.com/pancakes?page=2&servings=4"
+
+
+# --- Origin -------------------------------------------------------------------
+
+
+@pytest.mark.parametrize(
+    ("url", "expected"),
+    [
+        (
+            "https://example.com/recipes/pancakes?servings=4#ingredients",
+            "https://example.com",
+        ),
+        ("http://example.com:8080/pancakes", "http://example.com:8080"),
+    ],
+)
+def test_returns_the_origin(url: str, expected: str) -> None:
+    """get_origin keeps scheme, host and an explicit port, and drops everything else."""
+    assert get_origin(url) == expected
